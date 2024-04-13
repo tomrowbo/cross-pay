@@ -16,10 +16,10 @@ export default function Home() {
     <>
       <Hero />
       <Process />
-      <FeaturesHome />
+      {/* <FeaturesHome />
       <Tabs />
       <Target />
-      <News />
+      <News /> */}
       <Newsletter />      
     </>
   )
