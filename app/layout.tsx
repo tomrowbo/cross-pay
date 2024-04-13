@@ -1,12 +1,19 @@
 import './css/style.css'
 
-import { Inter, Architects_Daughter } from 'next/font/google'
+import { Inter, Architects_Daughter, Permanent_Marker } from 'next/font/google'
 
 import Header from '@/components/ui/header'
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap'
+})
+
+const permanent_marker = Permanent_Marker({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-permanent-marker',
   display: 'swap'
 })
 
@@ -29,7 +36,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${architects_daughter.variable} font-inter antialiased bg-gray-900 text-gray-200 tracking-tight`}>
+      <body className={`${inter.variable} ${permanent_marker.variable} ${architects_daughter.variable} font-inter antialiased bg-gray-900 text-gray-200 tracking-tight`}>
         <div className="flex flex-col min-h-screen overflow-hidden">
           <Header />
           {children}
