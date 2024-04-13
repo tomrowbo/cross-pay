@@ -90,4 +90,30 @@ describe("TokenToTokenExchange Contract", function () {
       await expect(exchange.getAmountOfTokens(100, 0, 0)).to.be.revertedWith("Invalid reserves");
     });
   });
+
+  describe("swapToAddress", function () {
+    it("should swap tokens and send the output to a specified address", async function () {
+        // Arrange
+        const initialAmountUSDC = parseUnits('1000', 6);
+        const initialAmountEURC = parseUnits('800', 6);
+        await exchange.addLiquidity(initialAmountUSDC, initialAmountEURC);
+        
+        const amountToSwap = parseUnits('100', 6);
+        const minAmountOut = parseUnits('70', 6); // Minimum expected output
+
+        // Act: owner swaps USDC for EURC, output should go to addr1
+        await exchange.swapToAddress(amountToSwap, mockUSDC.address, minAmountOut, addr1.address);
+
+        // Assert
+        const finalAmountUSDC = await mockUSDC.balanceOf(owner.address);
+        const finalAmountEURC = await mockEURC.balanceOf(addr1.address);
+
+        // expect(finalAmountUSDC.toString()).to.equal(parseUnits('900', 6).toString()); // 1000 - 100 swapped
+        expect(finalAmountEURC).to.be.gte(minAmountOut); // At least 70 EURC received by addr1
+        const [reserveUSDC, reserveEURC] = await exchange.getReserves();
+        expect(reserveUSDC).to.be.gte(initialAmountUSDC); // Increased due to swap
+        expect(reserveEURC).to.be.lte(initialAmountEURC); // Decreased due to swap
+    });
+});
+
 });

@@ -36,6 +36,7 @@ export interface TokenToTokenExchangeInterface extends Interface {
       | "name"
       | "removeLiquidity"
       | "swap"
+      | "swapToAddress"
       | "symbol"
       | "tokenA"
       | "tokenB"
@@ -80,6 +81,10 @@ export interface TokenToTokenExchangeInterface extends Interface {
     functionFragment: "swap",
     values: [BigNumberish, AddressLike, BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "swapToAddress",
+    values: [BigNumberish, AddressLike, BigNumberish, AddressLike]
+  ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(functionFragment: "tokenA", values?: undefined): string;
   encodeFunctionData(functionFragment: "tokenB", values?: undefined): string;
@@ -118,6 +123,10 @@ export interface TokenToTokenExchangeInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "swap", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "swapToAddress",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tokenA", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tokenB", data: BytesLike): Result;
@@ -263,6 +272,17 @@ export interface TokenToTokenExchange extends BaseContract {
     "nonpayable"
   >;
 
+  swapToAddress: TypedContractMethod<
+    [
+      _amountIn: BigNumberish,
+      _tokenIn: AddressLike,
+      _minAmountOut: BigNumberish,
+      recipient: AddressLike
+    ],
+    [void],
+    "nonpayable"
+  >;
+
   symbol: TypedContractMethod<[], [string], "view">;
 
   tokenA: TypedContractMethod<[], [string], "view">;
@@ -345,6 +365,18 @@ export interface TokenToTokenExchange extends BaseContract {
       _amountIn: BigNumberish,
       _tokenIn: AddressLike,
       _minAmountOut: BigNumberish
+    ],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "swapToAddress"
+  ): TypedContractMethod<
+    [
+      _amountIn: BigNumberish,
+      _tokenIn: AddressLike,
+      _minAmountOut: BigNumberish,
+      recipient: AddressLike
     ],
     [void],
     "nonpayable"

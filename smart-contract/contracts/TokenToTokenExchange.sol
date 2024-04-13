@@ -89,6 +89,34 @@ contract TokenToTokenExchange is ERC20 {
     ERC20(tokenOut).transfer(msg.sender, amountOut);
 }
 
+    // Updated swap function that includes a recipient address
+    function swapToAddress(uint _amountIn, address _tokenIn, uint _minAmountOut, address recipient) public {
+        require(_tokenIn == tokenA || _tokenIn == tokenB, "Invalid input token");
+        require(recipient != address(0), "Recipient address cannot be zero");
+        address tokenOut = _tokenIn == tokenA ? tokenB : tokenA;
+
+        uint reserveIn;
+        uint reserveOut;
+        uint reserveA;
+        uint reserveB;
+
+        (reserveA, reserveB) = getReserves();
+
+        if (_tokenIn == tokenA) {
+            reserveIn = reserveA;
+            reserveOut = reserveB;
+        } else {
+            reserveIn = reserveB;
+            reserveOut = reserveA;
+        }
+
+        uint amountOut = getAmountOfTokens(_amountIn, reserveIn, reserveOut);
+        require(amountOut >= _minAmountOut, "Insufficient output amount");
+
+        ERC20(_tokenIn).transferFrom(msg.sender, address(this), _amountIn);
+        ERC20(tokenOut).transfer(recipient, amountOut);
+    }
+
 
     /** 
     * @dev Returns the amount of output tokens that would be returned to the user in the swap.
