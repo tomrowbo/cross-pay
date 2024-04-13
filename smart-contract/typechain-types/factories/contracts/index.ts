@@ -3,4 +3,4 @@
 /* eslint-disable */
 export * as mock from "./mock";
 export { Exchange__factory } from "./Exchange__factory";
-export { MockEURC__factory } from "./MockEURC__factory";
+export { TokenToTokenExchange__factory } from "./TokenToTokenExchange__factory";

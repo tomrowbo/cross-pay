@@ -4,4 +4,4 @@
 import type * as mock from "./mock";
 export type { mock };
 export type { Exchange } from "./Exchange";
-export type { MockEURC } from "./MockEURC";
+export type { TokenToTokenExchange } from "./TokenToTokenExchange";

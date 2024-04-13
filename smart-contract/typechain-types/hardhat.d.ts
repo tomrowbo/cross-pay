@@ -42,13 +42,17 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Exchange__factory>;
     getContractFactory(
+      name: "MockEURC",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MockEURC__factory>;
+    getContractFactory(
       name: "MockUSDC",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MockUSDC__factory>;
     getContractFactory(
-      name: "MockEURC",
+      name: "TokenToTokenExchange",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.MockEURC__factory>;
+    ): Promise<Contracts.TokenToTokenExchange__factory>;
 
     getContractAt(
       name: "IERC1155Errors",
@@ -86,15 +90,20 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.Exchange>;
     getContractAt(
+      name: "MockEURC",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MockEURC>;
+    getContractAt(
       name: "MockUSDC",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.MockUSDC>;
     getContractAt(
-      name: "MockEURC",
+      name: "TokenToTokenExchange",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.MockEURC>;
+    ): Promise<Contracts.TokenToTokenExchange>;
 
     deployContract(
       name: "IERC1155Errors",
@@ -125,13 +134,17 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Exchange>;
     deployContract(
+      name: "MockEURC",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockEURC>;
+    deployContract(
       name: "MockUSDC",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.MockUSDC>;
     deployContract(
-      name: "MockEURC",
+      name: "TokenToTokenExchange",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.MockEURC>;
+    ): Promise<Contracts.TokenToTokenExchange>;
 
     deployContract(
       name: "IERC1155Errors",
@@ -169,15 +182,20 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Exchange>;
     deployContract(
+      name: "MockEURC",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockEURC>;
+    deployContract(
       name: "MockUSDC",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.MockUSDC>;
     deployContract(
-      name: "MockEURC",
+      name: "TokenToTokenExchange",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.MockEURC>;
+    ): Promise<Contracts.TokenToTokenExchange>;
 
     // default types
     getContractFactory(

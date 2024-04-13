@@ -23,7 +23,7 @@ import type {
   TypedContractMethod,
 } from "../../common";
 
-export interface MockUSDCInterface extends Interface {
+export interface MockEURCInterface extends Interface {
   getFunction(
     nameOrSignature:
       | "allowance"
@@ -126,11 +126,11 @@ export namespace TransferEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export interface MockUSDC extends BaseContract {
-  connect(runner?: ContractRunner | null): MockUSDC;
+export interface MockEURC extends BaseContract {
+  connect(runner?: ContractRunner | null): MockEURC;
   waitForDeployment(): Promise<this>;
 
-  interface: MockUSDCInterface;
+  interface: MockEURCInterface;
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,

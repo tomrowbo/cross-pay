@@ -21,18 +21,24 @@ import type {
   TypedLogDescription,
   TypedListener,
   TypedContractMethod,
-} from "../../common";
+} from "../common";
 
-export interface MockUSDCInterface extends Interface {
+export interface TokenToTokenExchangeInterface extends Interface {
   getFunction(
     nameOrSignature:
+      | "addLiquidity"
       | "allowance"
       | "approve"
       | "balanceOf"
       | "decimals"
-      | "mint"
+      | "getAmountOfTokens"
+      | "getReserves"
       | "name"
+      | "removeLiquidity"
+      | "swap"
       | "symbol"
+      | "tokenA"
+      | "tokenB"
       | "totalSupply"
       | "transfer"
       | "transferFrom"
@@ -40,6 +46,10 @@ export interface MockUSDCInterface extends Interface {
 
   getEvent(nameOrSignatureOrTopic: "Approval" | "Transfer"): EventFragment;
 
+  encodeFunctionData(
+    functionFragment: "addLiquidity",
+    values: [BigNumberish, BigNumberish]
+  ): string;
   encodeFunctionData(
     functionFragment: "allowance",
     values: [AddressLike, AddressLike]
@@ -54,11 +64,25 @@ export interface MockUSDCInterface extends Interface {
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "mint",
-    values: [AddressLike, BigNumberish]
+    functionFragment: "getAmountOfTokens",
+    values: [BigNumberish, BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getReserves",
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "removeLiquidity",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "swap",
+    values: [BigNumberish, AddressLike, BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
+  encodeFunctionData(functionFragment: "tokenA", values?: undefined): string;
+  encodeFunctionData(functionFragment: "tokenB", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
     values?: undefined
@@ -72,13 +96,31 @@ export interface MockUSDCInterface extends Interface {
     values: [AddressLike, AddressLike, BigNumberish]
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "addLiquidity",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getAmountOfTokens",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getReserves",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "removeLiquidity",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "swap", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "tokenA", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "tokenB", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
@@ -126,11 +168,11 @@ export namespace TransferEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export interface MockUSDC extends BaseContract {
-  connect(runner?: ContractRunner | null): MockUSDC;
+export interface TokenToTokenExchange extends BaseContract {
+  connect(runner?: ContractRunner | null): TokenToTokenExchange;
   waitForDeployment(): Promise<this>;
 
-  interface: MockUSDCInterface;
+  interface: TokenToTokenExchangeInterface;
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
@@ -169,6 +211,12 @@ export interface MockUSDC extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
+  addLiquidity: TypedContractMethod<
+    [_amountA: BigNumberish, _amountB: BigNumberish],
+    [bigint],
+    "nonpayable"
+  >;
+
   allowance: TypedContractMethod<
     [owner: AddressLike, spender: AddressLike],
     [bigint],
@@ -185,15 +233,41 @@ export interface MockUSDC extends BaseContract {
 
   decimals: TypedContractMethod<[], [bigint], "view">;
 
-  mint: TypedContractMethod<
-    [to: AddressLike, amount: BigNumberish],
+  getAmountOfTokens: TypedContractMethod<
+    [
+      inputAmount: BigNumberish,
+      inputReserve: BigNumberish,
+      outputReserve: BigNumberish
+    ],
+    [bigint],
+    "view"
+  >;
+
+  getReserves: TypedContractMethod<[], [[bigint, bigint]], "view">;
+
+  name: TypedContractMethod<[], [string], "view">;
+
+  removeLiquidity: TypedContractMethod<
+    [_liquidity: BigNumberish],
+    [[bigint, bigint] & { amountA: bigint; amountB: bigint }],
+    "nonpayable"
+  >;
+
+  swap: TypedContractMethod<
+    [
+      _amountIn: BigNumberish,
+      _tokenIn: AddressLike,
+      _minAmountOut: BigNumberish
+    ],
     [void],
     "nonpayable"
   >;
 
-  name: TypedContractMethod<[], [string], "view">;
-
   symbol: TypedContractMethod<[], [string], "view">;
+
+  tokenA: TypedContractMethod<[], [string], "view">;
+
+  tokenB: TypedContractMethod<[], [string], "view">;
 
   totalSupply: TypedContractMethod<[], [bigint], "view">;
 
@@ -213,6 +287,13 @@ export interface MockUSDC extends BaseContract {
     key: string | FunctionFragment
   ): T;
 
+  getFunction(
+    nameOrSignature: "addLiquidity"
+  ): TypedContractMethod<
+    [_amountA: BigNumberish, _amountB: BigNumberish],
+    [bigint],
+    "nonpayable"
+  >;
   getFunction(
     nameOrSignature: "allowance"
   ): TypedContractMethod<
@@ -234,17 +315,48 @@ export interface MockUSDC extends BaseContract {
     nameOrSignature: "decimals"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "mint"
+    nameOrSignature: "getAmountOfTokens"
   ): TypedContractMethod<
-    [to: AddressLike, amount: BigNumberish],
-    [void],
-    "nonpayable"
+    [
+      inputAmount: BigNumberish,
+      inputReserve: BigNumberish,
+      outputReserve: BigNumberish
+    ],
+    [bigint],
+    "view"
   >;
+  getFunction(
+    nameOrSignature: "getReserves"
+  ): TypedContractMethod<[], [[bigint, bigint]], "view">;
   getFunction(
     nameOrSignature: "name"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
+    nameOrSignature: "removeLiquidity"
+  ): TypedContractMethod<
+    [_liquidity: BigNumberish],
+    [[bigint, bigint] & { amountA: bigint; amountB: bigint }],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "swap"
+  ): TypedContractMethod<
+    [
+      _amountIn: BigNumberish,
+      _tokenIn: AddressLike,
+      _minAmountOut: BigNumberish
+    ],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "symbol"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "tokenA"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "tokenB"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "totalSupply"
