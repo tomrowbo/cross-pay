@@ -37,3 +37,9 @@ next-env.d.ts
 
 # contentlayer
 .contentlayer
+
+/smart-contract/cache
+/smart-contract/artifacts
+/smart-contract/typechain
+/smart-contract/coverage
+/smart-contract/coverage.json
