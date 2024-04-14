@@ -7,7 +7,7 @@ export default function Process() {
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
             <h2 className="h2 mb-4" data-aos="fade-up">Backed by Better Tech</h2>
-            <p className="text-xl text-gray-400" data-aos="fade-up" data-aos-delay="200">We're better than our competitors due to our underlying infrastructure.</p>
+            <p className="text-xl text-gray-400" data-aos="fade-up" data-aos-delay="200">We're better than our competitors due to our underlying blockchain infrastructure.</p>
           </div>
 
           {/* Items */}
