@@ -5,20 +5,9 @@ import MobileMenu from './mobile-menu'
 import Logo from '@/public/images/logo.png'
 import Image from 'next/image'
 import { ConnectWalletButton } from '../ConnectWalletButton'
-import { MetaMaskProvider } from '@metamask/sdk-react'
 
 export default function Header() {
-  const host =
-  typeof window !== "undefined" ? window.location.host : "defaultHost";
 
-const sdkOptions = {
-  logging: { developerMode: false },
-  checkInstallationImmediately: false,
-  dappMetadata: {
-    name: "Next-Metamask-Boilerplate",
-    url: host, // using the host constant defined above
-  },
-};
 
   return (
     <header className="absolute w-full z-30">
@@ -80,9 +69,7 @@ const sdkOptions = {
             {/* Desktop sign in links */}
             <ul className="flex grow justify-end flex-wrap items-center">
               <li>
-              <MetaMaskProvider debug={false} sdkOptions={sdkOptions}>
           <ConnectWalletButton />
-        </MetaMaskProvider>
               </li>
             </ul>
           </nav>
