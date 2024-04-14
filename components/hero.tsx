@@ -68,7 +68,7 @@ export default function Hero() {
               {/* Copy */}
               <h1 className="h1 font-hkgrotesk text-slate-100 mb-6" data-aos="fade-right" data-aos-delay="100">
                 Send money securely and globally with{' '}
-                <span className="font-permanent-marker text-purple-500 font-normal whitespace-nowrap">
+                <span className="h1 font-hkgrotesk  text-purple-500 whitespace-nowrap">
                   local{' '}
                   <span className="inline-flex relative">
                     <svg

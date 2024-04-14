@@ -1,10 +1,25 @@
+"use client"
 import Link from 'next/link'
 import Dropdown from '@/components/utils/dropdown'
 import MobileMenu from './mobile-menu'
 import Logo from '@/public/images/logo.png'
 import Image from 'next/image'
+import { ConnectWalletButton } from '../ConnectWalletButton'
+import { MetaMaskProvider } from '@metamask/sdk-react'
 
 export default function Header() {
+  const host =
+  typeof window !== "undefined" ? window.location.host : "defaultHost";
+
+const sdkOptions = {
+  logging: { developerMode: false },
+  checkInstallationImmediately: false,
+  dappMetadata: {
+    name: "Next-Metamask-Boilerplate",
+    url: host, // using the host constant defined above
+  },
+};
+
   return (
     <header className="absolute w-full z-30">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -65,17 +80,9 @@ export default function Header() {
             {/* Desktop sign in links */}
             <ul className="flex grow justify-end flex-wrap items-center">
               <li>
-                <Link
-                  href="/signin"
-                  className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
-                >
-                  Sign in
-                </Link>
-              </li>
-              <li>
-                <Link href="/signup" className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3">
-                  Sign up
-                </Link>
+              <MetaMaskProvider debug={false} sdkOptions={sdkOptions}>
+          <ConnectWalletButton />
+        </MetaMaskProvider>
               </li>
             </ul>
           </nav>
