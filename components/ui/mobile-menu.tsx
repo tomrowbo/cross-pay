@@ -66,16 +66,6 @@ export default function MobileMenu() {
             </Link>
           </li>
           <li>
-            <Link href="/pricing" className="flex text-gray-300 hover:text-gray-200 py-2" onClick={() => setMobileNavOpen(false)}>
-              Pricing
-            </Link>
-          </li>
-          <li>
-            <Link href="/blog" className="flex text-gray-300 hover:text-gray-200 py-2" onClick={() => setMobileNavOpen(false)}>
-              Blog
-            </Link>
-          </li>
-          <li>
             <Link href="/about" className="flex text-gray-300 hover:text-gray-200 py-2" onClick={() => setMobileNavOpen(false)}>
               About us
             </Link>
@@ -91,11 +81,6 @@ export default function MobileMenu() {
               <li>
                 <Link href="/help/frequently-asked-questions" className="text-sm flex font-medium text-gray-400 hover:text-gray-200 py-2" onClick={() => setMobileNavOpen(false)}>
                   Help center
-                </Link>
-              </li>
-              <li>
-                <Link href="/404" className="text-sm flex font-medium text-gray-400 hover:text-gray-200 py-2" onClick={() => setMobileNavOpen(false)}>
-                  404
                 </Link>
               </li>
             </ul>

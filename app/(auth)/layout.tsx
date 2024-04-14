@@ -1,4 +1,6 @@
 import PageIllustration from '@/components/page-illustration'
+import Header from '@/components/ui/header'
+
 
 export default function AuthLayout({
   children,
@@ -9,6 +11,7 @@ export default function AuthLayout({
     <main className="grow">
 
       <PageIllustration />
+      <Header />
 
       {children}
 

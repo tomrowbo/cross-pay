@@ -3,7 +3,6 @@ import './css/style.css'
 
 import { Inter, Architects_Daughter, Permanent_Marker } from 'next/font/google'
 
-import Header from '@/components/ui/header'
 import { MetaMaskProvider } from '@metamask/sdk-react'
 
 const inter = Inter({
@@ -52,7 +51,6 @@ const sdkOptions = {
       <body className={`${inter.variable} ${permanent_marker.variable} ${architects_daughter.variable} font-inter antialiased bg-gray-900 text-gray-200 tracking-tight`}>
         <div className="flex flex-col min-h-screen overflow-hidden">
         <MetaMaskProvider debug={false} sdkOptions={sdkOptions}>
-          <Header />
           </MetaMaskProvider>
 
           {children}
