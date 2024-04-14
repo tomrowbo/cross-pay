@@ -1,4 +1,6 @@
 // pages/api/sendMoney.js
+import { addTransaction, transactions } from '@/utils/transactionManager';
+import { stat } from 'fs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server.js';
 
@@ -14,39 +16,9 @@ export async function POST(req: NextRequest) {
     const toAddress = req.nextUrl.searchParams.get('toAddress');
     const transAmount = req.nextUrl.searchParams.get('amount');
     addTransaction(fromAddress!!, toAddress!!, parseInt(transAmount!!))
-    return new NextRequest(JSON.stringify(transactions))
+
+    return new NextResponse(JSON.stringify({message:"success"}), {
+        headers: { 'Content-Type': 'application/json' },
+      });
+
 }
-
-
-// Define a Transaction interface for better type checking
-interface Transaction {
-    from: string;
-    to: string;
-    amount: number;
-}
-
-// This array will hold all transactions in memory
-const transactions: Transaction[] = [];
-
-/**
- * Adds a transaction to the in-memory transaction list.
- * 
- * @param from - The wallet address of the sender.
- * @param to - The recipient address.
- * @param amount - The amount of the transaction.
- */
-function addTransaction(from: string, to: string, amount: number): void {
-    // Create a new transaction object
-    const newTransaction: Transaction = {
-        from,
-        to,
-        amount
-    };
-
-    // Add the new transaction to the array
-    transactions.push(newTransaction);
-
-    // Optionally, log the current state of transactions for debugging
-    console.log(transactions);
-}
-
