@@ -9,7 +9,7 @@ import {
   import { Button } from "@/components/ui/button"
 
 
-import { useSDK, MetaMaskProvider } from "@metamask/sdk-react";
+import { useSDK } from "@metamask/sdk-react";
 
 
 export const ConnectWalletButton = () => {

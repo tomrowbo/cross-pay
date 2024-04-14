@@ -2,7 +2,15 @@
 import React from 'react';
 import BottomNavigationBar from '@/components/ui/BottomNavigationBar';
 
+interface User{
+    name: string;
+    handle: string;
+    balance: number;
+    country: string;
+}
+
 const UserPage = () => {
+
     return (
         <div className="flex flex-col w-full min-h-screen bg-gradient-to-br from-black via-black to-blue-900 text-white"> {/* Diagonal gradient with color ratio */}
             <div className="flex flex-1 flex-col items-center justify-center px-4 py-10">
