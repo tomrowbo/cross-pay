@@ -100,7 +100,7 @@ export default function Hero() {
                       data-aos-delay="300"
                       >
                       <div>
-                        <Link className="btn text-white bg-blue-500 hover:bg-blue-600 group shadow-sm rounded-lg" href="/subscribe">
+                        <Link className="btn text-white bg-blue-500 hover:bg-blue-600 group shadow-sm rounded-lg" href="/user">
                         Get Started{' '}
                         <span className="tracking-normal text-blue-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">
                           -&gt;

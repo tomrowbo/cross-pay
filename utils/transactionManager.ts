@@ -9,8 +9,8 @@ export interface Transaction {
 export const transactions: Transaction[] = [];
 
 export const balances: { [key: string]: number } = {
-    "0x77f5504acf4712D8dB92a6C34b4bba49724acEE6": 1000000,
-    "0x4296A6cbdCdcEb9F2314c9d7481686DdA8b48e51": 500000,
+    "0x77f5504acf4712D8dB92a6C34b4bba49724acEE6": 125,
+    "0x4296A6cbdCdcEb9F2314c9d7481686DdA8b48e51": 100,
 };
 
 
