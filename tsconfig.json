@@ -31,6 +31,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".contentlayer/generated"
-, "utils/getTokenBalance.js"  ],
+, "utils/getTokenBalance.js","app/user/transfer/page.jsx"  ],
   "exclude": ["node_modules"]
 }

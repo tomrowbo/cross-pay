@@ -13,6 +13,17 @@ input[type=range] {
     --thumb-size: #{--range-thumb-size};
 }
 
+/* Add to your CSS */
+.transaction-panel {
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(100%);
+  }
+
+  .transaction-panel.show {
+    transform: translateY(0);
+  }
+
+
 input[type=range]::-webkit-slider-thumb {
     appearance: none;
     -webkit-appearance: none;

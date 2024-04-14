@@ -1,5 +1,7 @@
 // user/page.tsx
 "use client";
+import useBalanceStore from '@/components/useBalanceStore';
+
 import React, { useEffect, useState } from 'react';
 import BottomNavigationBar from '@/components/ui/BottomNavigationBar';
 
@@ -14,6 +16,8 @@ interface User{
 }
 
 const UserPage = () => {
+    const { balance, addTransaction } = useBalanceStore();
+
     const [user, setUser] = useState<User>({
         name: 'Abdel Lemamsha',
         handle: '@Abzzer',
@@ -89,7 +93,7 @@ const UserPage = () => {
                             />                    
                             <div className="text-lg font-medium flex items-center space-x-1">
                         <span className="font-bold text-xl"></span>
-                        <span className="font-bold text-3xl">   {user.currency}{user.balance}</span>
+                        <span className="font-bold text-3xl">   {user.currency}{balance.toFixed(2)}</span>
                         <span className="text-xl">${user.coin}</span>
                     </div> {/* Enhanced bank balance */}
                 </div>
@@ -98,10 +102,21 @@ const UserPage = () => {
                     Send Money Instantly
                 </a>
             </div>
-            <div>
-                <BottomNavigationBar />
+            
+           {/* Transactions panel */}
+           <div className="absolute bottom-0 left-0 w-full bg-white text-black">
+                <div className="p-4">
+                    <h3 className="text-lg font-semibold">Recent Transactions</h3>
+                    <button onClick={() => addTransaction(10)} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                        Add €10
+                    </button>
+                    <div className="mt-2">
+                        <p>+€{balance.toFixed(2)} EUROC - Topped Up</p>
+                    </div>
+                </div>
             </div>
-        </div>
+            <BottomNavigationBar />
+            </div>
     );
 }
 
